@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Students = () => {
-  const { data, setdata} = useContext(StudentContexdata);
+  const { data, setdata } = useContext(StudentContexdata);
   const navigate = useNavigate();
 
   const moveToAddpage = () => {
@@ -16,12 +16,16 @@ const Students = () => {
     toast.success("SingleStudentInfo.");
   };
 
-  const deleteStudentInfo = (id)=>{
-     const copydata = data.filter((e)=> e.id !== id)
-     setdata(copydata);
-     localStorage.setItem("StudentInfo",JSON.stringify(copydata))
-     toast.success("Delete Student ")
-  }
+  const deleteStudentInfo = (id) => {
+    const copydata = data.filter((e) => e.id !== id);
+    setdata(copydata);
+    localStorage.setItem("StudentInfo", JSON.stringify(copydata));
+    toast.success("Delete Student ");
+  };
+
+  const editInfo = (id) => {
+    navigate(`/student/${id}`);
+  };
 
   return (
     <div>
@@ -63,10 +67,18 @@ const Students = () => {
               >
                 View
               </button>
-              <button className="px-2 py-1 rounded bg-amber-500">Edit</button>
-              <button  
-               onClick={()=> deleteStudentInfo(e.id)}
-              className="px-2 py-1 rounded bg-amber-500">Delete</button>
+              <button
+                onClick={() => editInfo(e.id)}
+                className="px-2 py-1 rounded bg-amber-500"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => deleteStudentInfo(e.id)}
+                className="px-2 py-1 rounded bg-amber-500"
+              >
+                Delete
+              </button>
             </div>
           </div>
         ))}
