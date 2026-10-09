@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { StudentContexdata } from "../contex/StudnetContext";
 import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 
 export const AddStudent = () => {
   const { data, setdata } = useContext(StudentContexdata);
@@ -9,8 +10,10 @@ export const AddStudent = () => {
   const naviage = useNavigate();
 
   const SubmitData = (studentData) => {
+    studentData.id = nanoid();
     const copydata = [...data, studentData];
     setdata(copydata);
+    localStorage.setItem("StudentInfo", JSON.stringify(copydata));
     reset();
     naviage("/students");
   };
